@@ -18,6 +18,7 @@ public class PersonController {
     @Autowired
     private PersonService service;
 
+
     @GetMapping
     public List<Person> findAll() {
         return this.service.findAll();

@@ -1,5 +1,6 @@
 package ru.job4j.job4j_chat.service;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.job4j.job4j_chat.entity.PersonEntity;
 import ru.job4j.job4j_chat.entity.RoleEntity;
@@ -16,10 +17,12 @@ public class PersonService {
 
     private final PersonRepository repository;
     private final RoleRepository roleRepository;
+    private BCryptPasswordEncoder encoder;
 
-    public PersonService(PersonRepository repository, RoleRepository roleRepository) {
+    public PersonService(PersonRepository repository, RoleRepository roleRepository, BCryptPasswordEncoder encoder) {
         this.repository = repository;
         this.roleRepository = roleRepository;
+        this.encoder = encoder;
     }
 
     public List<Person> findAll() {
@@ -31,6 +34,7 @@ public class PersonService {
     public Person save(PersonEntity person) {
         RoleEntity role = roleRepository.findByName("user");
         person.setRole(role);
+        person.setPassword(encoder.encode(person.getPassword()));
         repository.save(person);
         return Person.toPerson(person);
     }

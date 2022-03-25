@@ -21,7 +21,11 @@ public class PersonController {
 
     @GetMapping
     public List<Person> findAll() {
-        return this.service.findAll();
+        List<Person> list = this.service.findAll();
+        if (list.isEmpty()) {
+            throw new NullPointerException("not found");
+        }
+        return list;
     }
 
     @GetMapping("/{id}")

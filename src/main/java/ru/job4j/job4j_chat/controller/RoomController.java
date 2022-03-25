@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import ru.job4j.job4j_chat.entity.RoomEntity;
 import ru.job4j.job4j_chat.model.Room;
 import ru.job4j.job4j_chat.service.RoomService;
@@ -20,15 +21,21 @@ public class RoomController {
 
     @GetMapping
     public List<Room> findAll() {
-        return this.service.findAll();
+        List<Room> list = this.service.findAll();
+        if (list.isEmpty()) {
+            throw new NullPointerException("not found");
+        }
+        return list;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Room> findById(@PathVariable int id) {
         var room = Optional.ofNullable(this.service.findById(id));
         return new ResponseEntity<Room>(
-                room.orElse(new Room()),
-                room.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND
+                room.orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Room is not found."
+                )),
+                HttpStatus.OK
         );
     }
 

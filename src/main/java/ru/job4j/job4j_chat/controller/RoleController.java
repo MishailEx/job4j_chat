@@ -16,6 +16,10 @@ public class RoleController {
 
     @GetMapping
     public List<Role> findAll() {
-        return this.service.findAll();
+        List<Role> list = this.service.findAll();
+        if (list.isEmpty()) {
+            throw new NullPointerException("not found");
+        }
+        return list;
     }
 }

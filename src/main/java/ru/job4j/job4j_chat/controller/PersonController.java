@@ -8,6 +8,7 @@ import ru.job4j.job4j_chat.entity.PersonEntity;
 import ru.job4j.job4j_chat.model.Person;
 import ru.job4j.job4j_chat.service.PersonService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<Person> create(@RequestBody PersonEntity person) {
+    public ResponseEntity<Person> create(@Valid @RequestBody PersonEntity person) {
         return new ResponseEntity<Person>(
                 this.service.save(person),
                 HttpStatus.CREATED
@@ -46,7 +47,7 @@ public class PersonController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> update(@RequestBody PersonEntity person) {
+    public ResponseEntity<Void> update(@Valid @RequestBody PersonEntity person) {
         this.service.save(person);
         return ResponseEntity.ok().build();
     }

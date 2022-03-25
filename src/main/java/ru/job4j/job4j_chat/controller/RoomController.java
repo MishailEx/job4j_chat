@@ -9,6 +9,7 @@ import ru.job4j.job4j_chat.entity.RoomEntity;
 import ru.job4j.job4j_chat.model.Room;
 import ru.job4j.job4j_chat.service.RoomService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +41,7 @@ public class RoomController {
     }
 
     @PostMapping
-    public ResponseEntity<Room> create(@RequestBody RoomEntity room,
+    public ResponseEntity<Room> create(@Valid @RequestBody RoomEntity room,
                                        @RequestParam int personId) {
         return new ResponseEntity<Room>(
                 this.service.create(room, personId),
@@ -49,7 +50,7 @@ public class RoomController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> update(@RequestBody RoomEntity room) {
+    public ResponseEntity<Void> update(@Valid @RequestBody RoomEntity room) {
         this.service.update(room);
         return ResponseEntity.ok().build();
     }

@@ -1,6 +1,9 @@
 package ru.job4j.job4j_chat.entity;
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Objects;
 
@@ -9,6 +12,7 @@ public class MessageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank(message = "Title must be not empty")
     private String description;
     private Date date;
     @ManyToOne

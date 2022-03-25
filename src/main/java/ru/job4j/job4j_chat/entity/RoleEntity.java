@@ -1,6 +1,7 @@
 package ru.job4j.job4j_chat.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Objects;
 

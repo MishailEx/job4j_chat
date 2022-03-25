@@ -1,6 +1,8 @@
 package ru.job4j.job4j_chat.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,7 +11,10 @@ public class PersonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank(message = "name must be not empty")
     private String name;
+    @NotBlank(message = "password must be not empty")
+    @Size(min = 3, max = 40, message = "Password length must be at least 3 characters")
     private String password;
     @ManyToOne
     @JoinColumn(name = "role_id")

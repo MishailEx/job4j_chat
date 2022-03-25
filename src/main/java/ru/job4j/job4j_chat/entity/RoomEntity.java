@@ -1,6 +1,7 @@
 package ru.job4j.job4j_chat.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -10,6 +11,7 @@ public class RoomEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank(message = "Name room must be not empty")
     private String name;
     private Date date;
     @ManyToOne

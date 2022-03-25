@@ -3,7 +3,6 @@ package ru.job4j.job4j_chat.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +14,7 @@ import ru.job4j.job4j_chat.service.MessageService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -35,7 +35,7 @@ public class MessageController {
     }
 
     @PostMapping
-    public ResponseEntity<Message> create(@RequestBody MessageEntity message,
+    public ResponseEntity<Message> create(@Valid @RequestBody MessageEntity message,
                                               @RequestParam int personId,
                                           @RequestParam int roomId) throws ForbiddenWordException {
         if (message.getDescription().contains("fuck")) {

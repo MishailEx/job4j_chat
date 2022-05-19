@@ -14,7 +14,6 @@ public class PersonEntity {
     @NotBlank(message = "name must be not empty")
     private String name;
     @NotBlank(message = "password must be not empty")
-    @Size(min = 3, max = 40, message = "Password length must be at least 3 characters")
     private String password;
     @ManyToOne
     @JoinColumn(name = "role_id")

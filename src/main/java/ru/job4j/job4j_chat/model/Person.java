@@ -2,9 +2,6 @@ package ru.job4j.job4j_chat.model;
 
 import ru.job4j.job4j_chat.entity.PersonEntity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Person {
     private int id;
     private String name;
